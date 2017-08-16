@@ -24,8 +24,8 @@ sys.setdefaultencoding('UTF8')
     
 #-------------------------------------------------------------------------------
 #DB creation
-
-DBdirectory ='/home/javier/.../Code/jsonData/' #The database Directory
+#
+#DBdirectory ='/home/javier/.../Code/jsonData/' #The database Directory
 
 #Client connection with MongoDB
 try:
@@ -35,13 +35,13 @@ except pymongo.errors.ConnectionFailure, e:
    print "Could not connect to MongoDB: %s" % e 
 
 
-pdfServelPath = './padron/' #the path where you have all the pdf
+pdfServelPath = '../Padron/' #the path where you have all the pdf
 files = [name for name in glob.glob(os.path.join(pdfServelPath, '*.pdf'))] #search each pdf file
 
 
 #pointers
-db = client.ServelChile # Nombre de la base de datos: Militantes
-Servel = db.PadronChile
+db = client.RutChile # Nombre de la base de datos: Militantes
+Servel = db.Padron
 
 for i in range(len(files)):
     archivo = files[i]
