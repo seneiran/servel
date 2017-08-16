@@ -27,10 +27,10 @@ from pyPdf import PdfFileReader
 
 
 def convert(fname, pages=None):
-'''
-This function converts a pagre from a pdf file into a stream of text.
-Thanks to the libraries imported.
-'''
+    
+    #This function converts a pagre from a pdf file into a stream of text.
+    #Thanks to the libraries imported.
+    
     if not pages:
         pagenums = set()
     else:
