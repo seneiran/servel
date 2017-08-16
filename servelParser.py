@@ -13,7 +13,7 @@ http://stackoverflow.com/questions/26494211/extracting-text-from-a-pdf-file-usin
 import csv
 import sys
 import json
-import googlemaps
+#import googlemaps
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -53,6 +53,7 @@ def convert(fname, pages=None):
 
 
 def servelParser(rutaPdf):
+    print rutaPdf
     pdf = PdfFileReader(open(rutaPdf,'rb'))
     paginas = pdf.getNumPages() #will fetch all the pages from the PDF. It could take a LOT of time
     #paginas = 2
@@ -81,8 +82,8 @@ def servelParser(rutaPdf):
         indexDomEle = pages[i].index('DOMICILIO ELECTORAL')
         indexMesa   = pages[i].index('MESA')
         
-        print "Procesando la hoja ", i
-        print '\n'
+        print "Procesando la hoja ", i," de: ",paginas
+        #print '\n'
         
         #Extract the data for each field in "pages" and sort in an structured way   
         if(indexCirc == indexDomEle-1): 
@@ -118,10 +119,10 @@ def servelParser(rutaPdf):
             rutSexo = rut[i][j].split(" ") 
             #GoogleMaps API query
             #Will search the address that appears in the Servel Record, for EACH person
-            gmaps = googlemaps.Client(myKey)
-            queryAddr = direccion[i][j] + ", "  + comuna[i] + ", " + Region[i] + ", Chile"
+            # gmaps = googlemaps.Client(myKey)
+            #queryAddr = direccion[i][j] + ", "  + comuna[i] + ", " + Region[i] + ", Chile"
             # Geocoding an address
-            geocode_result = gmaps.geocode(queryAddr)
+            #geocode_result = gmaps.geocode(queryAddr)
             
             #datosServel will be a data structure, containing the information of each person.  Also, it
             #will record the lat and long of its address, in order to show it in googleMap
@@ -133,9 +134,9 @@ def servelParser(rutaPdf):
                                 'Sexo':rutSexo[1][0].replace("V", "H"),
                                 'direccion':direccion[i][j],
                                 'Comuna':comuna[i],
-                                'Region':Region[i],
-                                'Lat':geocode_result[0]["geometry"]["location"]["lat"],
-                                'Lng':geocode_result[0]["geometry"]["location"]["lng"]}
+                                'Region':Region[i]}
+                                #'Lat':geocode_result[0]["geometry"]["location"]["lat"],
+                                #'Lng':geocode_result[0]["geometry"]["location"]["lng"]}
             k+=1
                                 
     return datosServel

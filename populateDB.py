@@ -29,7 +29,10 @@ sys.setdefaultencoding('UTF8')
 
 #Client connection with MongoDB
 try:
-    client=pymongo.MongoClient()
+    client = MongoClient('127.0.0.1')
+    client.RutChile.authenticate('superuser','picodeperro',source='admin')
+    #uri = "mongodb://superuser:picodeperro@35.188.87.1:27017/admin"
+    #client = pymongo.MongoClient(uri)
     print "Connected successfully!!!"
 except pymongo.errors.ConnectionFailure, e:
    print "Could not connect to MongoDB: %s" % e 
