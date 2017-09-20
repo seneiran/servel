@@ -82,7 +82,7 @@ def servelParser(rutaPdf):
         indexDomEle = pages[i].index('DOMICILIO ELECTORAL')
         indexMesa   = pages[i].index('MESA')
         
-        print "Procesando la hoja ", i," de: ",paginas
+        print "Procesando la hoja ", i+1," de: ",paginas
         #print '\n'
         
         #Extract the data for each field in "pages" and sort in an structured way   
@@ -90,17 +90,17 @@ def servelParser(rutaPdf):
             nombres[i]           = pages[i][indexNombre+1:indexCI-1]
             rut[i]               = pages[i][indexCI+2:indexCI+2+len(nombres[i])]
             comuna[i]            = pages[i][indexComuna+2]
-            circunscripcion[i]   = pages[i][indexCirc+1:indexCirc+1+2*len(nombres[1]):2]
-            direccion[i]         = pages[i][indexDomEle+1:indexDomEle+1+2*len(nombres[i]):2]
+            #circunscripcion[i]   = pages[i][indexCirc+1:indexCirc+1+2*len(nombres[1]):2]
+            #direccion[i]         = pages[i][indexDomEle+1:indexDomEle+1+2*len(nombres[i]):2]
             provincia[i]         = str(pages[i][indexRegion+4]).replace(":","").lstrip()
             Region[i]            = str(pages[i][indexRegion+3]).replace(":","").lstrip()
             Mesa[i]              = pages[i][indexMesa+1:len(pages[i])-1]
         else:
             nombres[i]           = pages[i][indexNombre+1:indexCI-1]
             rut[i]               = pages[i][indexCI+2:indexCI+2+len(nombres[i])]
-            circunscripcion[i]   = pages[i][indexCirc+1:indexCirc+1+len(nombres[i])]
+            #circunscripcion[i]   = pages[i][indexCirc+1:indexCirc+1+len(nombres[i])]
             comuna[i]            = pages[i][indexComuna+2]
-            direccion[i]         = pages[i][indexDomEle+1:indexDomEle+1+len(nombres[i])]
+            #direccion[i]         = pages[i][indexDomEle+1:indexDomEle+1+len(nombres[i])]
             provincia[i]         = str(pages[i][indexRegion+4]).replace(":","").lstrip()
             Region[i]            = str(pages[i][indexRegion+3]).replace(":","").lstrip()
             Mesa[i]              = pages[i][indexMesa+1:len(pages[i])-1]
@@ -126,13 +126,13 @@ def servelParser(rutaPdf):
             
             #datosServel will be a data structure, containing the information of each person.  Also, it
             #will record the lat and long of its address, in order to show it in googleMap
-            print "Guardando datos número ",k+1
+            #print "Guardando datos número ",k+1
             datosServel[k] = {  'Nombre':str(nombres[i][j]),
                                 'Rut':str(rutSexo[0].replace(".","")),
-                                'Circunscripcion':circunscripcion[i][j],
-                                'Mesa':Mesa[i][j],
-                                'Sexo':rutSexo[1][0].replace("V", "H"),
-                                'direccion':direccion[i][j],
+                                #'Circunscripcion':circunscripcion[i][j],
+                                #'Mesa':Mesa[i][j],
+                                #'Sexo':rutSexo[1][0].replace("V", "H"),
+                              #  'direccion':direccion[i][j],
                                 'Comuna':comuna[i],
                                 'Region':Region[i]}
                                 #'Lat':geocode_result[0]["geometry"]["location"]["lat"],

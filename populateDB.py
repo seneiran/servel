@@ -29,7 +29,7 @@ sys.setdefaultencoding('UTF8')
 
 #Client connection with MongoDB
 try:
-    client = MongoClient('127.0.0.1')
+    client = MongoClient('causasjudiciales.ddns.net')
     client.RutChile.authenticate('superuser','picodeperro',source='admin')
     #uri = "mongodb://superuser:picodeperro@35.188.87.1:27017/admin"
     #client = pymongo.MongoClient(uri)
@@ -38,12 +38,12 @@ except pymongo.errors.ConnectionFailure, e:
    print "Could not connect to MongoDB: %s" % e 
 
 
-pdfServelPath = '../Padron/' #the path where you have all the pdf
+pdfServelPath = './Padron/' #the path where you have all the pdf
 files = [name for name in glob.glob(os.path.join(pdfServelPath, '*.pdf'))] #search each pdf file
 
 
 #pointers
-db = client.RutChile # Nombre de la base de datos: Militantes
+db = client.RutChile # 
 Servel = db.Padron
 
 for i in range(len(files)):
@@ -52,8 +52,8 @@ for i in range(len(files)):
     archivoServel = servelParser(archivo)
     
     #Servel DB
-    for i in range(len(archivoServel)):
-        Servel.insert_one(archivoServel[i])
+    #for i in range(len(archivoServel)):
+    Servel.insert_many(archivoServel)
     print "Populating servel Collection"
     
 print "Todos los datos han sido migrados a la base de datos"
